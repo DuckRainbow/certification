@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Contact(models.Model):
+    # Модель для представления контакта поставщика
+
     email = models.EmailField(
         verbose_name='email',
         help_text='Укажите email контакта',
@@ -36,6 +38,7 @@ class Contact(models.Model):
 
 
 class Product(models.Model):
+    # Модель для представления продукта
     title = models.CharField(
         max_length=100,
         verbose_name='название',
@@ -61,6 +64,7 @@ class Product(models.Model):
 
 
 class Supplier(models.Model):
+    # Модель для представления поставщика
     title = models.CharField(
         max_length=100,
         verbose_name='Название',
