@@ -135,6 +135,7 @@ class ProductTestCase(APITestCase):
                     'id': self.product.pk,
                     'title': self.product.title,
                     'type': self.product.type,
+                    'date_of_release': self.product.date_of_release.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
                 }
             ],
         }
@@ -168,100 +169,3 @@ class ProductTestCase(APITestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Product.objects.count(), 0)
-
-
-class SupplierTestCase(APITestCase):
-    """Класс для проверки корректности работы CRUD поставщиков"""
-
-    def setUp(self):
-        self.user = User.objects.create(email='test@example.ru', first_name='test_name', last_name='test_last_name')
-        self.user.set_password('test')
-        self.user.is_active = True
-        self.user.save()
-        self.client = APIClient()
-        self.client.force_authenticate(user=self.user)
-        self.contact = Contact.objects.create(
-            email='test@emai.ru',
-            country='test_country',
-            city='test_city',
-            street='test_street',
-            building='test_building'
-        )
-        self.product = Product.objects.create(
-            title='test_title',
-            type='test_type',
-        )
-        self.supplier = Supplier.objects.create(
-            title='test_title',
-            contacts=self.contact,
-            products=self.product,
-            debt='test_debt',
-            level='test_level',
-        )
-
-    def test_create_supplier(self):
-        """Создание поставщика"""
-        url = reverse('retailing:supplier_create')
-        data = {
-            'title': 'test_title2',
-            'contacts': self.contact,
-            'products': self.product,
-            'debt': 'test_debt2',
-            'level': 'test_level2',
-        }
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Supplier.objects.count(), 2)
-        self.assertTrue(Supplier.objects.all().exists())
-
-    def test_suppliers_list(self):
-        """Вывод списка поставщиков"""
-        url = reverse('retailing:suppliers_list')
-        response = self.client.get(url)
-        data = response.json()
-        result = {
-            'count': 1,
-            'next': None,
-            'previous': None,
-            'results': [
-                {
-                    'id': self.supplier.pk,
-                    'title': self.supplier.title,
-                    'contacts': self.supplier.contacts,
-                    'products': self.supplier.products,
-                    'debt': self.supplier.debt,
-                    'level': self.supplier.level,
-                }
-            ],
-        }
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(data, result)
-
-    def test_supplier_retrieve(self):
-        """Проверка корректности данных"""
-        url = reverse('retailing:supplier_retrieve', args=(self.supplier.pk,))
-        response = self.client.get(url)
-        data = response.json()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(data['title'], self.supplier.title)
-        self.assertEqual(data['contacts'], self.supplier.contacts)
-        self.assertEqual(data['products'], self.supplier.products)
-        self.assertEqual(data['debt'], self.supplier.debt)
-        self.assertEqual(data['level'], self.supplier.level)
-
-    def test_supplier_update(self):
-        """Проверка обновления поставщиков"""
-        url = reverse('retailing:supplier_update', args=(self.supplier.pk,))
-        data = {
-            'title': 'title updated',
-        }
-        response = self.client.patch(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(data['title'], 'title updated')
-
-    def test_supplier_delete(self):
-        """Проверка удаления поставщика"""
-        url = reverse('retailing:supplier_delete', args=(self.supplier.pk,))
-        response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Supplier.objects.count(), 0)

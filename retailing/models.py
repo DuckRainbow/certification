@@ -92,6 +92,7 @@ class Supplier(models.Model):
         Product,
         verbose_name='Продукты',
         help_text='Укажите продукты поставщика',
+        blank=True,
     )
 
     up_supplier = models.ForeignKey(
