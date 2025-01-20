@@ -102,6 +102,12 @@ class SupplierCreateAPIView(CreateAPIView):
     queryset = Supplier.objects.all()
     permission_classes = (IsAuthenticated, IsActive)
 
+    def perform_create(self, serializer):
+        """Привязка города контакта к текущему поставщику"""
+        supplier = serializer.save()
+        supplier.city = supplier.contacts.city
+        supplier.save()
+
 
 class SupplierListAPIView(ListAPIView):
     """Контроллер для просмотра списка всех поставщиков"""
@@ -115,7 +121,7 @@ class SupplierListAPIView(ListAPIView):
         "products",
         "supplier",
         "created_time",
-        "contacts.country"
+        "city"
     )
     permission_classes = (IsAuthenticated, IsActive)
     pagination_class = PagePagination

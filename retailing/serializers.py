@@ -1,5 +1,4 @@
 from rest_framework.serializers import ModelSerializer
-from retailing.validators import SupplierValidator
 from retailing.models import Supplier, Contact, Product
 
 
@@ -15,13 +14,6 @@ class SupplierCreateSerializer(ModelSerializer):
     class Meta:
         model = Supplier
         fields = ('title', 'contacts', 'products', 'supplier', 'debt', 'level')
-        validators = [
-            SupplierValidator(
-                queryset=Supplier.objects.all(),
-                field1='level',
-                field2='supplier'
-            )
-        ]
 
 
 class SupplierUpdateSerializer(ModelSerializer):
@@ -29,13 +21,6 @@ class SupplierUpdateSerializer(ModelSerializer):
     class Meta:
         model = Supplier
         fields = ('title', 'contacts', 'products', 'supplier', 'level')
-        validators = [
-            SupplierValidator(
-                queryset=Supplier.objects.all(),
-                field1='level',
-                field2='supplier'
-            )
-        ]
 
 
 class ContactSerializer(ModelSerializer):

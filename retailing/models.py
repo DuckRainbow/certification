@@ -73,10 +73,17 @@ class Supplier(models.Model):
         help_text='Укажите название поставщика',
     )
 
-    contacts = models.ManyToManyField(
+    contacts = models.ForeignKey(
         Contact,
         verbose_name='Контакты',
         help_text='Укажите контакты поставщика',
+        on_delete=models.SET_NULL,
+    )
+
+    city = models.CharField(
+        max_length=50,
+        verbose_name='город',
+        help_text='Укажите город контакта',
     )
 
     products = models.ManyToManyField(
@@ -91,6 +98,7 @@ class Supplier(models.Model):
         help_text='Укажите поставщика продуктов',
         blank=True,
         null=True,
+        on_delete=models.SET_NULL,
     )
 
     debt = models.DecimalField(
@@ -108,9 +116,9 @@ class Supplier(models.Model):
     )
 
     LEVEL_CHOICES = {
-        0: 'завод',
-        1: 'розничная сеть',
-        2: 'индивидуальный предприниматель'
+        (0, 'завод'),
+        (1, 'розничная сеть'),
+        (2, 'индивидуальный предприниматель')
     }
 
     level = models.CharField(

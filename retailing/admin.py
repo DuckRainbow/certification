@@ -13,6 +13,6 @@ def clean_debt(pk):
 class SupplierAdmin(admin.ModelAdmin):
     # Представление модели Supplier в admin панели
     list_display = ('id', 'title', 'debt', 'created_time', 'level')
-    fields = [('id', 'title', 'level'), 'contacts', 'products', 'supplier', 'debt', 'created_time']
-    list_filter = ('contact.city',)
+    fields = [('id', 'title', 'level'), ('contacts', 'city'), 'products', 'supplier', 'debt', 'created_time']
+    list_filter = ('city',)
     actions = [clean_debt, ]
