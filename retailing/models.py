@@ -53,6 +53,8 @@ class Product(models.Model):
         auto_now=True,
         verbose_name='дата выхода продукта на рынок',
         help_text='Укажите дату выхода продукта на рынок',
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
@@ -87,6 +89,8 @@ class Supplier(models.Model):
         'self',
         verbose_name='Поставщик',
         help_text='Укажите поставщика продуктов',
+        blank=True,
+        null=True,
     )
 
     debt = models.DecimalField(
@@ -99,6 +103,8 @@ class Supplier(models.Model):
     created_time = models.DateTimeField(
         auto_created=True,
         verbose_name='Время создания',
+        blank=True,
+        null=True,
     )
 
     LEVEL_CHOICES = {
