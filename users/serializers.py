@@ -19,8 +19,6 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "image",
-            "token",
-            "uid",
         )
 
 

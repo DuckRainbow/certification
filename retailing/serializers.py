@@ -13,14 +13,14 @@ class SupplierCreateSerializer(ModelSerializer):
     # Сериалайзер для создания модели Supplier
     class Meta:
         model = Supplier
-        fields = ('title', 'contacts', 'products', 'supplier', 'debt', 'level')
+        fields = ('title', 'contacts', 'products', 'up_supplier', 'debt', 'level')
 
 
 class SupplierUpdateSerializer(ModelSerializer):
     # Сериалайзер для создания модели Supplier
     class Meta:
         model = Supplier
-        fields = ('title', 'contacts', 'products', 'supplier', 'level')
+        fields = ('title', 'contacts', 'products', 'up_supplier', 'level')
 
 
 class ContactSerializer(ModelSerializer):

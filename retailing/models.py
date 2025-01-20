@@ -77,6 +77,8 @@ class Supplier(models.Model):
         Contact,
         verbose_name='Контакты',
         help_text='Укажите контакты поставщика',
+        blank=True,
+        null=True,
         on_delete=models.SET_NULL,
     )
 
@@ -92,7 +94,7 @@ class Supplier(models.Model):
         help_text='Укажите продукты поставщика',
     )
 
-    supplier = models.ForeignKey(
+    up_supplier = models.ForeignKey(
         'self',
         verbose_name='Поставщик',
         help_text='Укажите поставщика продуктов',
@@ -127,7 +129,7 @@ class Supplier(models.Model):
 
     def __str__(self):
         return (
-            f'Поставщик {self.title}, контакты {self.contacts}, продукты {self.products}, поставщик {self.supplier},'
+            f'Поставщик {self.title}, контакты {self.contacts}, продукты {self.products}, поставщик {self.up_supplier},'
             f'задолженность перед поставщиком {self.debt}, время создания {self.created_time}'\
             )
 

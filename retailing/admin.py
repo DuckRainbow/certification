@@ -3,16 +3,15 @@ from django.contrib import admin
 from retailing.models import Supplier
 
 
-def clean_debt(pk):
-    supplier = Supplier.objects.filter(id=pk)
-    supplier.debt = 0
-    supplier.save()
+@admin.action
+def clean_debt(modeladmin, request, queryset):
+    queryset.update(debt=0)
 
 
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
     # Представление модели Supplier в admin панели
     list_display = ('id', 'title', 'debt', 'created_time', 'level')
-    fields = [('id', 'title', 'level'), ('contacts', 'city'), 'products', 'supplier', 'debt', 'created_time']
+    fields = [('title', 'level'), ('contacts', 'city'), 'products', 'up_supplier', 'debt', 'created_time']
     list_filter = ('city',)
     actions = [clean_debt, ]
