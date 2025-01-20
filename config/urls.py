@@ -21,7 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls', namespace='users')),
     path('retailing/', include('retailing.urls', namespace='retailing')),
-    # path("feedbacks/", include("feedbacks.urls", namespace="feedbacks")),
     path('swagger/',
          schema_view.with_ui('swagger', cache_timeout=0),
          name='schema-swagger-ui', ),
