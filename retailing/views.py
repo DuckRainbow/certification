@@ -97,14 +97,14 @@ class ProductDestroyAPIView(DestroyAPIView):
 
 
 class SupplierCreateAPIView(CreateAPIView):
-    """Создание объекта продукта"""
+    """Создание объекта поставщика"""
     serializer_class = SupplierCreateSerializer
     queryset = Supplier.objects.all()
     permission_classes = (IsAuthenticated, IsActive)
 
 
 class SupplierListAPIView(ListAPIView):
-    """Контроллер для просмотра списка всех продуктов"""
+    """Контроллер для просмотра списка всех поставщиков"""
 
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
@@ -122,21 +122,21 @@ class SupplierListAPIView(ListAPIView):
 
 
 class SupplierRetrieveAPIView(RetrieveAPIView):
-    """Контроллер для просмотра продукта"""
+    """Контроллер для просмотра поставщика"""
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     permission_classes = (IsAuthenticated, IsActive)
 
 
 class SupplierUpdateAPIView(UpdateAPIView):
-    """Контроллер для изменения продукта"""
+    """Контроллер для изменения поставщика"""
     queryset = Supplier.objects.all()
     serializer_class = SupplierUpdateSerializer
     permission_classes = (IsAuthenticated, IsActive)
 
 
 class SupplierDestroyAPIView(DestroyAPIView):
-    """Контроллер для удаления продукта"""
+    """Контроллер для удаления поставщика"""
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     permission_classes = (IsAuthenticated, IsActive)
