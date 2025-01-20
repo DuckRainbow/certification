@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from retailing.models import Supplier
+from retailing.models import Supplier, Contact, Product
 
 
 @admin.action
@@ -15,3 +15,17 @@ class SupplierAdmin(admin.ModelAdmin):
     fields = [('title', 'level'), ('contacts', 'city'), 'products', 'up_supplier', 'debt', 'created_time']
     list_filter = ('city',)
     actions = [clean_debt, ]
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    # Представление модели Contact в admin панели
+    list_display = ('id', 'email', 'country', 'city')
+    fields = ['email', 'country', 'city', ('street', 'building')]
+    list_filter = ('city',)
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    # Представление модели Product в admin панели
+    list_display = ('id', 'title', 'type', 'date_of_release')
