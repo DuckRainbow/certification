@@ -4,7 +4,7 @@ from retailing.models import Supplier, Contact, Product
 
 
 class SupplierSerializer(ModelSerializer):
-    # Сериалайзер для всех views, кроме создания, модели Supplier
+    # Сериалайзер для всех views, кроме создания и обновления модели Supplier
     class Meta:
         model = Supplier
         fields = '__all__'
@@ -15,6 +15,20 @@ class SupplierCreateSerializer(ModelSerializer):
     class Meta:
         model = Supplier
         fields = ('title', 'contacts', 'products', 'supplier', 'debt', 'level')
+        validators = [
+            SupplierValidator(
+                queryset=Supplier.objects.all(),
+                field1='level',
+                field2='supplier'
+            )
+        ]
+
+
+class SupplierUpdateSerializer(ModelSerializer):
+    # Сериалайзер для создания модели Supplier
+    class Meta:
+        model = Supplier
+        fields = ('title', 'contacts', 'products', 'supplier', 'level')
         validators = [
             SupplierValidator(
                 queryset=Supplier.objects.all(),
