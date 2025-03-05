@@ -22,7 +22,7 @@ o	индивидуальный предприниматель.
 
 1.Клонируйте проект
 
-    git clone git@github.com:DuckRainbow/certification.git
+    git clone git@github.com:DuckRainbow/retailing.git
     
 2.Создайте виртуальное окружение
 
